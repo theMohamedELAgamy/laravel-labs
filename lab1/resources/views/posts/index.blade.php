@@ -17,14 +17,19 @@
               </tr>
             </thead>
             <tbody>
-            @foreach ( $posts as $post)        
+            @foreach ( $posts as $post)
               <tr>
-                <td>{{ $post['id'] }}</th>
-                <td>{{ $post['title'] }}</td>
-                <td>{{ $post['post_creator'] }}</td>
-                <td>{{ $post['created_at'] }}</td>
+                <td>{{ $post->id }}</th>
+                <td>{{ $post->title }}</td>
+                @if($post->user)
+                  <td>{{$post->user->name}}</td>
+                @else
+                  <td>Not Found</td>
+                @endif
+                {{-- <td>{{$post->user ? $post->user->name : 'Not Found'}}</td> --}}
+                <td>{{ $post->created_at }}</td>
                 <td>
-                    <a href="{{ route('posts.view', ['post' => $post['id']]) }}" class="btn btn-info">View</a>
+                    <a href="{{ route('posts.view', ['post' => $post->id]) }}" class="btn btn-info">View</a>
                     <a  href="{{ route('posts.edit', ['post' => $post['id']]) }}" class="btn btn-primary">Edit</a>
                     <a  href="{{ route('posts.delete', ['post' => $post['id']]) }}"class="btn btn-danger">Delete</a>
                 </td>

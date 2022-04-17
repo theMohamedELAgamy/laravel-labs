@@ -10,24 +10,25 @@
 </script>
         <form method="POST" action="{{ route('posts.update')}}">
             @csrf
-            <input type="text" name="id"  value={{ $post['id'] }} style="{
+            <!-- <input type="text" name="id"  value={{ $post['id'] }} style="{
                 display:none;
-            }" class="form-control" id="exampleFormControlInput1" placeholder="">
+            }" class="form-control" id="exampleFormControlInput1" placeholder=""> -->
             <div class="mb-3">
                 <label for="exampleFormControlInput1" class="form-label">Title</label>
-                <input type="text" name="title"  value={{ $post['title'] }} class="form-control" id="exampleFormControlInput1" placeholder="">
+                <input type="text" name="title"  value={{ $post->title }} class="form-control" id="exampleFormControlInput1" placeholder="">
             </div>
             <div class="mb-3">
                 <label for="exampleFormControlTextarea1" class="form-label">Description</label>
-                <textarea class="form-control"  name="description" id="exampleFormControlTextarea1" rows="3">{{ $post['description'] }}</textarea>
+                <textarea class="form-control"  name="description" id="exampleFormControlTextarea1" rows="3">{{ $post->description }}</textarea>
             </div>
 
             <div class="mb-3">
                 <label for="exampleFormControlTextarea1"  class="form-label">Post Creator</label>
                
-                <select name="creator"  value={{ $post['post_creator'] }}class="form-control">
-                    <option value="Ahmed">Ahmed</option>
-                    <option value="Mohamed">Mohamed</option>
+                <select name="creator"  value={{ $post->user->name }}class="form-control">
+                @foreach ($users as $user)
+                        <option value="{{$user->id}}">{{$user->name}}</option>
+                    @endforeach
 
                 </select>
             </div>

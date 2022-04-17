@@ -10,26 +10,26 @@
 </script>
         
 <form method="POST" action="{{ route('posts.update')}}">
-            <input type="text" name="id"  value={{ $post['id'] }} style="{
-                display:none;
-            }" class="form-control" id="exampleFormControlInput1" placeholder="">
+            
+            <label for="exampleFormControlInput1" class="form-control" id="exampleFormControlInput1" class="form-label">{{ $post->id }}</label>
             <div class="mb-3">
                 <label for="exampleFormControlInput1" class="form-label">Title</label>
-                <input type="text" name="title"  value={{ $post['title'] }} class="form-control" id="exampleFormControlInput1" placeholder="">
+                <label for="exampleFormControlInput1" class="form-control" id="exampleFormControlInput1" class="form-label">{{ $post->title }}</label>
+                
             </div>
             <div class="mb-3">
                 <label for="exampleFormControlTextarea1" class="form-label">Description</label>
-                <textarea class="form-control"  name="description" id="exampleFormControlTextarea1" rows="3">{{ $post['description'] }}</textarea>
+                <label for="exampleFormControlTextarea1" class="form-control" id="exampleFormControlInput1" class="form-label">{{ $post->description }}</label>
+                
             </div>
 
             <div class="mb-3">
-                <label for="exampleFormControlTextarea1"  class="form-label">Post Creator</label>
+                <label for="exampleFormControlTextarea1"  class="form-label"> post creator</label>
                
-                <select name="creator"  value={{ $post['post_creator'] }}class="form-control">
-                    <option value="Ahmed">Ahmed</option>
-                    <option value="Mohamed">Mohamed</option>
-
-                </select>
+            <label name="creator"   class="form-control">
+                    
+                {{ $post->user->name}}
+             </label>
             </div>
             </form>
         
