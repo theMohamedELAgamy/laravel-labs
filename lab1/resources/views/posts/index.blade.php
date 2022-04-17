@@ -4,6 +4,7 @@
 
 @section('content')
 
+
         <div class="text-center">
             <a href="{{ route('posts.create') }}" class="mt-4 btn btn-success">Create Post</a>
         </div>
@@ -44,6 +45,19 @@
 
             </tbody>
           </table>
+
+          <div id="pagination">
+               {{ $posts->links() }}
+          </div>
+          <style>
+            #pagination{
+              display:inline;
+              direction:row;
+              width: 100px;
+              height: 50px;
+               scale: 2;
+            }
+          </style>
      <script>
 
 

@@ -10,16 +10,11 @@ use App\Models\User;
 class PostController extends Controller
 {
 
-    // public  static $posts = [
-    //     ['id' => 1, 'title' => 'Laravel', 'post_creator' => 'Ahmed', 'created_at' => '2022-04-16 10:37:00','description'=>"laravel course"],
-    //     ['id' => 2, 'title' => 'PHP', 'post_creator' => 'Mohamed', 'created_at' => '2022-04-16 10:37:00','description'=>"PHP course"],
-    //     ['id' => 3, 'title' => 'Javascript', 'post_creator' => 'Ali', 'created_at' => '2022-04-16 10:37:00','description'=>"Javascript course"],
-    // ];
-   // public static $num_posts=3;
+   
     public function index()
     {
-       $posts=post::all();
-        
+      // $posts=post::all();
+      $posts=post::paginate(15);
         
         return view('posts.index',[
             'posts' => $posts,
