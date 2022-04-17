@@ -3,6 +3,7 @@
 @section('title')Index @endsection
 
 @section('content')
+
         <div class="text-center">
             <a href="{{ route('posts.create') }}" class="mt-4 btn btn-success">Create Post</a>
         </div>
@@ -31,11 +32,40 @@
                 <td>
                     <a href="{{ route('posts.view', ['post' => $post->id]) }}" class="btn btn-info">View</a>
                     <a  href="{{ route('posts.edit', ['post' => $post['id']]) }}" class="btn btn-primary">Edit</a>
-                    <a  href="{{ route('posts.delete', ['post' => $post['id']]) }}"class="btn btn-danger">Delete</a>
+                    <!-- <form method="POST" action="{{ route('posts.delete', ['post' => $post['id']]) }}"> -->
+                        <!-- @method('DELETE')
+                        @csrf -->
+                         <a   id="delete_btn"  href="{{ route('posts.delete', ['post' => $post['id']]) }}"class="btn btn-danger">Delete</a>
+                          <!-- <input type="submit" id="delete_btn" class="btn btn-danger" value="Delete"  /> -->
+                  <!-- </form> -->
                 </td>
               </tr>
               @endforeach
 
             </tbody>
           </table>
+     <script>
+
+
+      
+      let delete_ancur=document.getElementsByClassName("btn btn-danger")[0];
+
+      delete_ancur.addEventListener('click',function(event){
+
+       if( confirm('are you sure')){
+        // event.preventDefault()
+        // const xhttp = new XMLHttpRequest();
+       
+        // xhttp.open("GET", "/posts/create/", true);
+        // xhttp.send();
+
+       }else{
+        event.preventDefault()
+       }
+      })
+      
+      
+      
+      
+  </script>
 @endsection

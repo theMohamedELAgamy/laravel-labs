@@ -3,16 +3,18 @@
 @section('title')view @endsection
 
 @section('content')
-<script>
+<style>
+    #post_id{
+        display:none;
+    }
+    </style>
   
 
         
-</script>
+
         <form method="POST" action="{{ route('posts.update')}}">
             @csrf
-            <!-- <input type="text" name="id"  value={{ $post['id'] }} style="{
-                display:none;
-            }" class="form-control" id="exampleFormControlInput1" placeholder=""> -->
+            <input type="text" id="post_id" name="id"  value={{ $post->id }} class="form-control" id="exampleFormControlInput1" > 
             <div class="mb-3">
                 <label for="exampleFormControlInput1" class="form-label">Title</label>
                 <input type="text" name="title"  value={{ $post->title }} class="form-control" id="exampleFormControlInput1" placeholder="">
@@ -25,9 +27,9 @@
             <div class="mb-3">
                 <label for="exampleFormControlTextarea1"  class="form-label">Post Creator</label>
                
-                <select name="creator"  value={{ $post->user->name }}class="form-control">
+                <select  name="creator" class="form-control">
                 @foreach ($users as $user)
-                        <option value="{{$user->id}}">{{$user->name}}</option>
+                        <option    value="{{$user->id}}">{{$user->name}}</option>
                     @endforeach
 
                 </select>

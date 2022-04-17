@@ -65,23 +65,18 @@ class PostController extends Controller
 
     public function update(Request $request){
         $request_out=$request->all();
-        // dd($request_out);
-        // self::$posts[$request_out['id']-1]['title']=update users set votes = 100 where name = ?;
-        // self::$posts[$request_out['id']-1]['description']=$request_out['description'];
-        // self::$posts[$request_out['id']-1]['post_creator']=$request_out['creator'];
-        $user_id=User::select('select id from users where id = ?', [$request_out['creator']]);
-        post::update("update posts set title =? && description=? && user_id=? where id = ?",$request_out['title'],$request_out['description'],[$user_id],[$request_out['id']]);
-
+        
+         post::where('id',$request_out['id'])->update([
+             'title'=>$request_out['title'],
+             'description'=>$request_out['description'],
+             'user_id'=>$request_out['creator']
+         ]);
 
         return to_route('posts.index');
     }
     public function delete($id){
-        unset(self::$posts[$id-1]);
-       // return route('posts.index');
-      // return redirect()->route('posts.index');
-        //dd($id);
-        return view('posts.index',[
-            'posts' => self::$posts,
-        ]);
+       
+        post::where('id',$id)->delete();
+        return to_route('posts.index');
     }
 }
