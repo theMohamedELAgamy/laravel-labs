@@ -31,6 +31,10 @@
                 {{ $post->user->name}}
              </label>
             </div>
+                 <label for="exampleFormControlTextarea1" class="form-label">comment</label>
+                 <textarea class="form-control" name="comment" id="exampleFormControlTextarea1" rows="3"></textarea>
+                <button type="submit" class="btn btn-success">comment</button>
+
             </form>
         
 @endsection

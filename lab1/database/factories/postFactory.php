@@ -26,7 +26,7 @@ class postFactory extends Factory
         return [
             'title' => $this->faker->title,
             'description' => $this->faker->text,
-            'user_id'
+            'user_id'=>1
         ];
     }
 }

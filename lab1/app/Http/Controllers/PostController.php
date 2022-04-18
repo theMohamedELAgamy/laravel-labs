@@ -7,14 +7,22 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\DataBase;
 use App\Models\post;
 use App\Models\User;
+use App\Models\Comment;
 class PostController extends Controller
 {
 
    
     public function index()
     {
-      // $posts=post::all();
-      $posts=post::paginate(15);
+        // $post = post::find(50);
+         //     foreach ($post->comments as $comment) {
+        //         dd($comment);
+        // };
+            
+     $posts=post::paginate(15);
+     
+       
+       
         
         return view('posts.index',[
             'posts' => $posts,
