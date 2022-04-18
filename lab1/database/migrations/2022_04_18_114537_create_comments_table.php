@@ -14,18 +14,20 @@ return new class extends Migration
     public function up()
     {
         Schema::create('comments', function (Blueprint $table) {
-            $table->integer("id");
+            // $table->integer("id");
             
-            $table->text('body');
+            // $table->text('body');
             
             
-            $table->Integer('commentable_id');
-            $table->String("commentable_type");
+            // $table->Integer('commentable_id');
+            // $table->String("commentable_type");
             
-            // id - integer;
-            // body  - text;
-            // commentable_id - integer;
-            // commentable_type - string;
+            $table->id();
+            $table->longText("comment");
+            $table->morphs("commentable");
+            $table->foreignId("user_id")->references("id")->on("users");
+            $table->timestamps();
+            $table->softDeletes();
             
         });
     }
