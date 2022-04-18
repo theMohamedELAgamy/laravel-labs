@@ -33,12 +33,9 @@
                 <td>
                     <a href="{{ route('posts.view', ['post' => $post->id]) }}" class="btn btn-info">View</a>
                     <a  href="{{ route('posts.edit', ['post' => $post['id']]) }}" class="btn btn-primary">Edit</a>
-                    <!-- <form method="POST" action="{{ route('posts.delete', ['post' => $post['id']]) }}"> -->
-                        <!-- @method('DELETE')
-                        @csrf -->
-                         <a   id="delete_btn"  href="{{ route('posts.delete', ['post' => $post['id']]) }}"class="btn btn-danger">Delete</a>
-                          <!-- <input type="submit" id="delete_btn" class="btn btn-danger" value="Delete"  /> -->
-                  <!-- </form> -->
+                    
+                         <a   id="delete_btn" onclick="deletepost(event)"  href="{{ route('posts.delete', ['post' => $post['id']]) }}"class="btn btn-danger">Delete</a>
+                     
                 </td>
               </tr>
               @endforeach
@@ -59,24 +56,15 @@
             }
           </style>
      <script>
+       function deletepost(e){
+            if( confirm('are you sure')){
+            
 
-
+            }else{
+              event.preventDefault()
+            }
+      }
       
-      let delete_ancur=document.getElementsByClassName("btn btn-danger")[0];
-
-      delete_ancur.addEventListener('click',function(event){
-
-       if( confirm('are you sure')){
-        // event.preventDefault()
-        // const xhttp = new XMLHttpRequest();
-       
-        // xhttp.open("GET", "/posts/create/", true);
-        // xhttp.send();
-
-       }else{
-        event.preventDefault()
-       }
-      })
       
       
       

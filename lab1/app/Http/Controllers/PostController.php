@@ -9,6 +9,8 @@ use App\Http\Requests\StorePostRequest;
 use App\Models\post;
 use App\Models\User;
 use App\Models\Comment;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class PostController extends Controller
 {
@@ -32,11 +34,9 @@ class PostController extends Controller
         
     }
 
-    public function store(Request  $request)
+    public function store(StorePostRequest  $request)
     { 
-           // $request->validated(); 
             $request_out=$request->all();
-       
             post::create([
                 'title' =>  $request_out['title'],
                 'description' =>  $request_out['description'],
@@ -62,8 +62,12 @@ class PostController extends Controller
         return view("posts.view",["post"=>$post,'comments'=>$comments]);
     }
 
-    public function update(Request $request){
+    public function update(StorePostRequest  $request){
         $request_out=$request->all();
+      
+        
+
+        
          post::where('id',$request_out['id'])->update([
              'title'=>$request_out['title'],
              'description'=>$request_out['description'],
