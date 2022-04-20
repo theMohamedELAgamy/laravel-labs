@@ -37,14 +37,13 @@ class PostController extends Controller
     public function store(StorePostRequest  $request)
     { 
         $validated= $request->validated();
-         
-            
-            post::create([
+        $post= post::create([
                 'title' =>  $validated['title'],
                 'description' =>  $validated['description'],
                 'user_id' => $validated['creator'],
             
             ]);
+            
             return to_route('posts.index');
     }
 
@@ -65,11 +64,9 @@ class PostController extends Controller
     }
 
     public function update(StorePostRequest  $request){
+        
+       
         $request_out=$request->all();
-      
-        
-
-        
          post::where('id',$request_out['id'])->update([
              'title'=>$request_out['title'],
              'description'=>$request_out['description'],
@@ -78,9 +75,10 @@ class PostController extends Controller
 
         return to_route('posts.index');
     }
-    public function delete($id){
-        post::where('id',$id)->delete();
-        return to_route('posts.index');
+    public function delete(Request $request){
+        $request_out=$request->all();
+         post::where('id',$request_out['id'])->delete();
+         return to_route('posts.index');
     }
 
     

@@ -21,13 +21,13 @@
                 </div>
             @endif
         
-
-        <form method="POST" action="{{ route('posts.update')}}">
+            {{ Form::open(array('route' => 'posts.update','method' => 'put')) }}
+      
             @csrf
             <input type="text" id="post_id" name="id"  value={{ $post->id }} class="form-control" id="exampleFormControlInput1" > 
             <div class="mb-3">
                 <label for="exampleFormControlInput1" class="form-label">Title</label>
-                <input type="text" name="title"  value={{ $post->title }} class="form-control" id="exampleFormControlInput1" placeholder="">
+                <input type="text" name="title"  value="{{ $post->title }}" class="form-control" id="exampleFormControlInput1" placeholder="">
             </div>
             <div class="mb-3">
                 <label for="exampleFormControlTextarea1" class="form-label">Description</label>
@@ -46,5 +46,7 @@
             </div>
 
           <button type="submit" class="btn btn-success">update</button>
-        </form>
+          {{ Form::close() }}
+        
+      
 @endsection

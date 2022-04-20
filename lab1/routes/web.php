@@ -28,9 +28,9 @@ Route::group(['middleware' => 'auth'],function(){
     Route::get('/posts/create/', [PostController::class, 'create'])->name('posts.create');
     Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
     Route::get('/posts/edit/{post}', [PostController::class, 'edit'])->name('posts.edit');
-    Route::post('/posts/update',[PostController::class,'update'])->name('posts.update');
+    Route::put('/posts/update',[PostController::class,'update'])->name('posts.update');
     Route::get('/posts/view/{post}',[PostController::class,'view'])->name('posts.view');
-    Route::get('/posts/delete/{post}',[PostController::class,'delete'])->name('posts.delete');
+    Route::delete('/posts/delete',[PostController::class,'delete'])->name('posts.delete');
     Route::get('/req_comment/{post}/{content}',[CommentController::class,'add_comment'])->name('comment.create');
 
 });

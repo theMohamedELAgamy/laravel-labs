@@ -11,19 +11,32 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Cviebrock\EloquentSluggable\Sluggable;
 
 class post extends Model
 {
+
+    
+    use Sluggable;
     use HasFactory;
     protected $fillable = [
         'title',
         'description',
         'user_id',
+        'slug'
     ];
 
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+    public function sluggable(): array
+    {
+        return [
+            'slug' => [
+                'source' => 'title'
+            ]
+        ];
     }
 
     public function comments() {
