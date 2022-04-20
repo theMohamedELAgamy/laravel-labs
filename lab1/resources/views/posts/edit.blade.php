@@ -21,9 +21,12 @@
                 </div>
             @endif
         
-            {{ Form::open(array('route' => 'posts.update','method' => 'put')) }}
+            {{ Form::open(array('route' => 'posts.update','method' => 'put','enctype'=>"multipart/form-data")) }}
       
             @csrf
+            @if($post->image_path)
+          <center><img src='/images/{{ $post->image_path }}' width=300 /></center>
+          @endif
             <input type="text" id="post_id" name="id"  value={{ $post->id }} class="form-control" id="exampleFormControlInput1" > 
             <div class="mb-3">
                 <label for="exampleFormControlInput1" class="form-label">Title</label>
@@ -43,6 +46,10 @@
                     @endforeach
 
                 </select>
+            </div>
+            <div class="mb-3">
+                <label for="exampleFormControlTextarea1" class="form-label">Change image</label>
+                <input type="file" rows="3" id="exampleFormControlTextarea1"  class="form-control" name="select_file"/>
             </div>
 
           <button type="submit" class="btn btn-success">update</button>

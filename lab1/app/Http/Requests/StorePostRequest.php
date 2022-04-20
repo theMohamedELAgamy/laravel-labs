@@ -30,7 +30,8 @@ class StorePostRequest extends FormRequest
         return [
             'title' => ['required','min:3','regex:^[a-zA-Z]+$^' ,Rule::unique('App\Models\post')->ignore($this->id)],
             'description' => ['required' ,'min:10'],
-            'creator'=>['exists:App\Models\User,id']
+            'creator'=>['exists:App\Models\User,id'],
+            'select_file'=>['image','mimes:jpg,png','max:2048']
         ];
     }
 

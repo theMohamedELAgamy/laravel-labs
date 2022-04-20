@@ -8,9 +8,10 @@
 
         
 </script>
-        
-
-            
+        @if($post->image_path)
+          <center><img src='/images/{{ $post->image_path }}' width=300 /></center>
+          @endif
+          <label for="exampleFormControlInput1" id="exampleFormControlInput1" class="form-label">ID:</label>
             <label for="exampleFormControlInput1" class="form-control" id="exampleFormControlInput1" class="form-label">{{ $post->id }}</label>
             <div class="mb-3">
                 <label for="exampleFormControlInput1" class="form-label">Title</label>
