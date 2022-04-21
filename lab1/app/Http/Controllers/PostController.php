@@ -10,6 +10,7 @@ use App\Http\Requests\StorePostRequest;
 use App\Models\post;
 use App\Models\User;
 use App\Models\Comment;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
@@ -37,23 +38,18 @@ class PostController extends Controller
     public function store(StorePostRequest  $request)
     {   
         $validated= $request->validated();
+        $new_name=null;
         if($request['select_file']){
             $image = $request->file('select_file');
             $new_name = rand() . '.' . $image->getClientOriginalExtension();
             $image->move(public_path('images'), $new_name); 
-            $post= post::create([
-                    'title' =>  $validated['title'],
-                    'description' =>  $validated['description'],
-                    'user_id' => $validated['creator'],
-                    'image_path'=>$new_name
-            ]);  
-        }  else{ 
+        } 
         $post= post::create([
-                'title' =>  $validated['title'],
-                'description' =>  $validated['description'],
-                'user_id' => $validated['creator'],
-            ]);
-        }
+            'title' =>  $validated['title'],
+            'description' =>  $validated['description'],
+            'user_id' => $validated['creator'],
+            'image_path'=>$new_name
+         ]);  
             return to_route('posts.index');
     }
 

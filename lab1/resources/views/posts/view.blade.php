@@ -53,7 +53,7 @@
                     let  comment_btn=document.getElementById("comment_btn")
                   let comment_content=document.getElementById("comment_content").value
                       req_comment= new XMLHttpRequest();
-                      req_comment.open('GET',"/req_comment/{{$post->id}}/"+comment_content)
+                      req_comment.open('GET',"/req_comment/{{$post->id}}/{{ Auth::user()->name}}"+comment_content)
                       req_comment.send()
                       req_comment.onreadystatechange=function(){
                           if(req_comment.readyState==4 &&req_comment.status==200){
