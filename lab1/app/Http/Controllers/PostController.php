@@ -26,18 +26,16 @@ class PostController extends Controller
         ]);
     }
 
-    public function create()
-    {    
-            $users = User::all();
+    public function create(){
+             $users = User::all();
             return view('posts.create',[
                 'users' => $users,
             ]);
         
     }
 
-    public function store(StorePostRequest  $request)
-    {   
-        $validated= $request->validated();
+    public function store(StorePostRequest  $request){
+        $validated= $request->validated();    
         $new_name=null;
         if($request['select_file']){
             $image = $request->file('select_file');
@@ -53,8 +51,7 @@ class PostController extends Controller
             return to_route('posts.index');
     }
 
-    public function edit($postId)
-    {
+    public function edit($postId){
         $post=post::find($postId);
         $users = User::all();
         return view("posts.edit",["post"=>$post,"users"=>$users]);
@@ -67,17 +64,18 @@ class PostController extends Controller
     }
 
     public function update(StorePostRequest  $request){
+              $validated= $request->validated();    
                 $request_out=$request->all();
                 if($request['select_file']){
-                    $post= post::find($request_out['id']);
+                    $post= post::find($validated['id']);
                     File::delete(public_path('images/'.$post['image_path'])); 
                     $image = $request->file('select_file');
                     $new_name = rand() . '.' . $image->getClientOriginalExtension();
                     $image->move(public_path('images'), $new_name); 
-                    post::where('id',$request_out['id'])->update([
-                        'title'=>$request_out['title'],
-                        'description'=>$request_out['description'],
-                        'user_id'=>$request_out['creator'],
+                    post::where('id',$validated['id'])->update([
+                        'title'=>$validated['title'],
+                        'description'=>$validated['description'],
+                        'user_id'=>$validated['creator'],
                         'image_path'=>$new_name
                     ]);
                 }else{
@@ -97,6 +95,7 @@ class PostController extends Controller
        $post= post::find($request_out['id']);
         File::delete(public_path('images/'.$post['image_path']));
          post::where('id',$request_out['id'])->delete();
+         Comment::where('commentable_id',$request_out['id'])->delete();
          return to_route('posts.index');
     }
 

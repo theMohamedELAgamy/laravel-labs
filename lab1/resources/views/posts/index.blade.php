@@ -64,9 +64,7 @@
           </style>
      <script>
        function deletepost(e){
-            if( confirm('are you sure')){
-
-            }else{
+            if( !confirm('are you sure')){
               event.preventDefault()
             }
       }

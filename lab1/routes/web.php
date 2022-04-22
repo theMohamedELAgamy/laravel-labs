@@ -31,7 +31,7 @@ Route::group(['middleware' => 'auth'],function(){
     Route::put('/posts/update',[PostController::class,'update'])->name('posts.update');
     Route::get('/posts/view/{post}',[PostController::class,'view'])->name('posts.view');
     Route::delete('/posts/delete',[PostController::class,'delete'])->name('posts.delete');
-    Route::get('/req_comment/{post}/{content}/{user_id}',[CommentController::class,'add_comment'])->name('comment.create');
+    Route::get('/req_comment/{post}/{user_id}/{content}',[CommentController::class,'add_comment'])->name('comment.create');
 
 });
 

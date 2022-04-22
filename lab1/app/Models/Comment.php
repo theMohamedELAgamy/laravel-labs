@@ -12,9 +12,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Comment extends Model
 {
-    use HasFactory;
-    use SoftDeletes;
-    use HasFactory;
+    // use HasFactory;
+    // use SoftDeletes;
+    // use HasFactory;
     protected $fillable = [
         'comment',
         'commentable_type',
@@ -25,8 +25,8 @@ class Comment extends Model
     {
         return $this->morphTo();
     }
-    // public function user(): BelongsTo
-    // {
-    //     return $this->belongsTo(User::class);
-    // }
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
 }
