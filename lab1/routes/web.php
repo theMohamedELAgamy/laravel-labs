@@ -3,6 +3,10 @@
 use App\Http\Controllers\CommentController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
+use App\Models\User;
+
+use Illuminate\Support\Facades\Auth;
+use Laravel\Socialite\Facades\Socialite;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,8 +38,38 @@ Route::group(['middleware' => 'auth'],function(){
     Route::get('/req_comment/{post}/{user_id}/{content}',[CommentController::class,'add_comment'])->name('comment.create');
 
 });
+ 
+Route::get('/auth/redirect', function () {
+    return Socialite::driver('github')->redirect();
+})->name('github.auth');
+ 
+ 
 
-
+ 
+Route::get('/auth/callback', function () {
+    $githubUser = Socialite::driver('github')->user();
+ 
+    $user = User::where('github_id', $githubUser->id)->first();
+ 
+    if ($user) {
+        $user->update([
+            'github_token' => $githubUser->token,
+            'github_refresh_token' => $githubUser->refreshToken,
+        ]);
+    } else {
+        $user = User::create([
+            'name' => $githubUser->name,
+            'email' => $githubUser->email,
+            'github_id' => $githubUser->id,
+            'github_token' => $githubUser->token,
+            'github_refresh_token' => $githubUser->refreshToken,
+        ]);
+    }
+ 
+    Auth::login($user);
+ 
+    return redirect('/dashboard');
+});
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
