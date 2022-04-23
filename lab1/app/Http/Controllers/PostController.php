@@ -76,7 +76,8 @@ class PostController extends Controller
                         'title'=>$validated['title'],
                         'description'=>$validated['description'],
                         'user_id'=>$validated['creator'],
-                        'image_path'=>$new_name
+                        'image_path'=>$new_name,
+                        'slug'
                     ]);
                 }else{
                     post::where('id',$request_out['id'])->update([
