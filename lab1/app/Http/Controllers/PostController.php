@@ -69,17 +69,17 @@ class PostController extends Controller
               $validated= $request->validated();    
                 $request_out=$request->all();
                 if($request['select_file']){
-                    $post= post::find($validated['id']);
+                    $post= post::find($request['id']);
                     File::delete(public_path('images/'.$post['image_path'])); 
                     $image = $request->file('select_file');
                     $new_name = rand() . '.' . $image->getClientOriginalExtension();
                     $image->move(public_path('images'), $new_name); 
-                    post::where('id',$validated['id'])->update([
+                    post::where('id',$request['id'])->update([
                         'title'=>$validated['title'],
                         'description'=>$validated['description'],
                         'user_id'=>$validated['creator'],
                         'image_path'=>$new_name,
-                        'slug'
+                        
                     ]);
                 }else{
                     post::where('id',$request_out['id'])->update([
