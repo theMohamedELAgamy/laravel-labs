@@ -48,7 +48,7 @@ Route::get('/auth/redirect', function () {
  
 Route::get('/auth/callback', function () {
     $githubUser = Socialite::driver('github')->user();
-    $user = User::where('name', $githubUser->nickname)->first();
+    $user = User::where('email', $githubUser->email)->first();
  
     if ($user) {
         $user->update([
@@ -71,6 +71,39 @@ Route::get('/auth/callback', function () {
  
     return redirect('/posts');
 });
+Route::get('login/google',function(){
+    return Socialite::driver('google')->redirect();
+
+})->name('login.google');
+Route::get('/google/callback',function(){
+    $googleuser = Socialite::driver('google')->user();
+   
+    $user = User::where('email', $googleuser->email)->first();
+ 
+    if ($user) {
+        $user->update([
+            
+            'google_token' => $googleuser->token,
+            
+        ]);
+    } else {
+        $user = User::create([
+            'name' => $googleuser->name,
+            'password'=>$googleuser->token,
+            'email' => $googleuser->email,
+            'google_id' => $googleuser->id,
+            'google_token' => $googleuser->token,
+            
+        ]);
+    }
+ 
+    Auth::login($user);
+ 
+    return redirect('/posts');
+    
+});
+
+
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

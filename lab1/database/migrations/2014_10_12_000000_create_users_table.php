@@ -24,6 +24,9 @@ return new class extends Migration
             $table->integer("github_id")->nullable();
             $table->string("github_token")->nullable();
             $table->string("github_refresh_token")->nullable();
+            $table->integer("google_id")->nullable();
+            $table->string("google_token")->nullable();
+            
         });
     }
 
